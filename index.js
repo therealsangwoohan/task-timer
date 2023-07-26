@@ -25,6 +25,7 @@ function startNewTime() {
         if (timeRemaining <= 0) {
             timeLeftDiv.innerText = "00:00:00";
             clearInterval(interval);
+            audioElement.pause();
         } else {
             const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
