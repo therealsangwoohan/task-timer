@@ -3,9 +3,6 @@ const taskDiv = document.getElementById("task");
 const timeSetDiv = document.getElementById("time-set");
 const timeLeftDiv = document.getElementById("time-left");
 let interval = undefined;
-const brownNoiseOnRadio = document.getElementById("brown-noise-on");
-const brownNoiseOffRadio = document.getElementById("brown-noise-off");
-const audioElement = new Audio("brown_noise.mp3");
 
 function updateTitle() {
     titleElement.innerText = taskDiv.innerText + "|" + timeLeftDiv.innerText;
@@ -25,7 +22,6 @@ function startNewTime() {
         if (timeRemaining <= 0) {
             timeLeftDiv.innerText = "00:00:00";
             clearInterval(interval);
-            audioElement.pause();
         } else {
             const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
@@ -46,22 +42,7 @@ function getNewTimeInMS() {
     return totalSeconds * 1000;
 }
 
-function startAudio() {
-    if (this.checked) {
-        audioElement.play()
-    }
-}
-
-function stopAudio() {
-    if (this.checked) {
-        audioElement.pause();
-        audioElement.currentTime = 0;
-    }
-}
-
 taskDiv.addEventListener("blur", updateTitle);
 timeSetDiv.addEventListener("blur", startNewTime);
-brownNoiseOnRadio.addEventListener("change", startAudio);
-brownNoiseOffRadio.addEventListener("change", stopAudio);
 
 updateTitle();
